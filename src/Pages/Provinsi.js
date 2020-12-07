@@ -1,50 +1,54 @@
 import React,{useEffect,useState} from 'react';
+import NumberFormat from "react-number-format";
 import axios from "axios";
 import '../App.css';
-import NumberFormat from 'react-number-format';
-const Provinsi = () => {
-  const[data, setdata]=useState([]);
-  const[fid, setfid]=useState([]);
-  const[kodeProvinsi, setkodeProvinsi]=useState([]);
-  const[provinsi, setprovinsi]=useState([]);
-  const[kasusPositif, setkasusPositif]=useState([]);
-  const[kasusSembuh, setkasusSembuh]=useState([]);
-  const[kasusMeninggal, setkasusMeninggal]=useState([]);
-  <NumberFormat value={12345} displayType={'text'} thousandSeparator={true}/>
-  useEffect(()=>{
+
+function Provinsi(){
+const [dataProvince, ListProvince]=useState([]);
+console.log(dataProvince);
+useEffect(()=>{
       axios
-      .get("https://indonesia-covid-19.mathdro.id/api/provinsi")
-      .then((response)=>
-      {
-        setdata(response.data.data.value);
-        setfid(response.data.fid.value);
-        setkodeProvinsi(response.data.kodeProvinsi.value);
-        setprovinsi(response.data.provinsi.value);
-        setkasusPositif(response.data.kasusPositif.value);
-        setkasusSembuh(response.data.kasusSembuh.value);
-        setkasusMeninggal(response.data.kasusMeninggal.value);
-        console.log(data,fid,kodeProvinsi,provinsi,kasusPositif,kasusSembuh,kasusMeninggal);
-      }).catch(errors=>{
-          console.log(errors);
-      })
-    });
+       .get("https://indonesia-covid-19.mathdro.id/api/provinsi")
+       .then(response=>{
+        ListProvince(response.data.data);
+       }).catch(error=>{
+           console.log(error)
+       })
+        
+},[]);
+
     return(
-        <>
+        <center>
         <p>Jumlah Kasus Provinsi</p>
-        {(data,fid,kodeProvinsi,provinsi,kasusPositif,kasusSembuh,kasusMeninggal).map((item)=>{
+        <table className="table" border="7">
+
+        <tr className="tr">
+        <th><center>Provinsi</center></th>
+        <th><center>Positif</center></th>
+        <th><center>Sembuh</center></th>
+        <th><center>Meninggal</center></th>
+        </tr>
+
+        {dataProvince.map((item,index)=>{
             return(
-                <Provinsi
-                data={item.data}
-                fid={item.fid}
-                kodeProvinsi={item.kodeProvinsi}
-                kasusPositif={item.kasusPositif}
-                kasusSembuh={item.kasusSembuh}
-                kasusMeninggal={item.kasusMeninggal}
-                />
+                <tr className="tr">
+                <th scope="row" key={item.fid}><center>{index+1}.</center></th>
+
+                <th><center><NumberFormat value={item.kasusPosi} thousandSeparator={true} 
+                displayType={'text'}/></center></th>
+
+                <th><center><NumberFormat value={item.kasusSemb} thousandSeparator={true} 
+                displayType={'text'}/></center></th>
+
+                <th><center><NumberFormat value={item.kasusMeni} thousandSeparator={true} 
+                displayType={'text'}/></center></th>
+                </tr>
             )
-     })}
-        </>
+        })}
+        </table>
+        </center>
     );
 }
 
 export default Provinsi;
+

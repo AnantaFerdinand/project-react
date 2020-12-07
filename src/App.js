@@ -10,6 +10,7 @@ const App=()=>{
 return( 
        <Router>
            <div>
+             <p>Ananta Ferdinand Lolo</p>
                <h1>Covid Tracker</h1>
         <nav>
           <ul>

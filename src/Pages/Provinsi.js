@@ -20,7 +20,7 @@ useEffect(()=>{
     return(
         <center>
         <p>Jumlah Kasus Provinsi</p>
-        <table className="table" border="7">
+        <table className="table" border="8">
 
         <tr className="tr">
         <th><center>Provinsi</center></th>

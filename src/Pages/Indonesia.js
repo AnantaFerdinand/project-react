@@ -5,62 +5,59 @@ import '../App.css';
 
 
 function Indonesia(){
-const[confirmed, setconfirmed]=useState("");
-const[deaths, setdeaths]=useState("");
-const[recovered, setrecovered]=useState("");
 const[perawatan, setPerawatan]=useState("");
+const[sembuh, setSembuh]=useState("");
+const[meninggal, setMeninggal]=useState("");
 const[jumlahKasus, setJumlahKasus]=useState("");
 const[lastUpdate, setLastUpdate]=useState("");
 
-console.log(confirmed,deaths,recovered,perawatan,jumlahKasus, lastUpdate);
 
 useEffect(()=>{
     
        axios
        .get("https://indonesia-covid-19.mathdro.id/api")
        .then(response=>{
-        setconfirmed(response.data.confirmed.value);
-        setdeaths(response.data.deaths.value);
-        setrecovered(response.data.recovered.value);
-        setPerawatan(response.data.perawatan.value);
-        setJumlahKasus(response.data.jumlahKasus.value);
-        setLastUpdate(response.data.lastUpdate.value);
-    
+        setPerawatan(response.data.value.perawatan);
+        setSembuh(response.data.value.sembuh);
+        setMeninggal(response.data.value.meninggal);
+        setJumlahKasus(response.data.value.jumlahKasus);
+        setLastUpdate(response.data.value.lastUpdate);
     }).catch(error=>{
         console.log(error);
     })
  
        
 },[]);
-
+console.log(perawatan,sembuh,meninggal,jumlahKasus, lastUpdate);
 
 return(
     
     <div className="container"> 
     <p>Jumlah Kasus Indonesia</p>
     <h1 className="Positif">
-    <NumberFormat value={confirmed} thousandSeparator={true} displayType={'text'}/>
+    
+    <NumberFormat value={perawatan} thousandSeparator={true} displayType={'text'}/>
     <p>Positif</p>
     </h1>
 
     <h1 className="Sembuh">
-    <NumberFormat value={recovered} thousandSeparator={true} displayType={'text'}/>
+    <NumberFormat value={sembuh} thousandSeparator={true} displayType={'text'}/>
     <p>Sembuh</p>
     </h1>
 
     <h1 className="Meninggal">
-    <NumberFormat value={deaths} thousandSeparator={true} displayType={'text'}/>
+    <NumberFormat value={meninggal} thousandSeparator={true} displayType={'text'}/>
     <p>Meninggal</p>
     </h1>
 
     <h1 className="Jumlah Kasus">
     <NumberFormat value={jumlahKasus} thousandSeparator={true} displayType={'text'}/>
-    <p>Jumlah Kasus</p>
+    {/* <p>Jumlah Kasus</p> */}
     </h1>
 
     <h1 className="Last Update">
     <NumberFormat value={lastUpdate} thousandSeparator={true} displayType={'text'}/>
-    <p>Last Update</p>
+    {/* <p>Last Update</p> */}
     </h1>
     
     

@@ -17,13 +17,14 @@ useEffect(()=>{
        axios
        .get("https://indonesia-covid-19.mathdro.id/api")
        .then(response=>{
-        setPerawatan(response.data.value.perawatan);
-        setSembuh(response.data.value.sembuh);
-        setMeninggal(response.data.value.meninggal);
-        setJumlahKasus(response.data.value.jumlahKasus);
-        setLastUpdate(response.data.value.lastUpdate);
+        setPerawatan(response.data.perawatan.value);
+        setSembuh(response.data.sembuh.value);
+        setMeninggal(response.data.meninggal.value);
+        setJumlahKasus(response.data.jumlahKasus.value);
+        setLastUpdate(response.data.lastUpdate.value);
     }).catch(error=>{
         console.log(error);
+        console.log("https://indonesia-covid-19.mathdro.id/api");
     })
  
        
@@ -35,7 +36,6 @@ return(
     <div className="container"> 
     <p>Jumlah Kasus Indonesia</p>
     <h1 className="Positif">
-    
     <NumberFormat value={perawatan} thousandSeparator={true} displayType={'text'}/>
     <p>Positif</p>
     </h1>
